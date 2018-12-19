@@ -8,7 +8,7 @@
 		
 	@csrf
 
-		<input type="select" name="classname">
+		<input type="select" name="classnames">
 
 		<button type="submit" class="btn btn-primary">
 			{{__('submit') }}
