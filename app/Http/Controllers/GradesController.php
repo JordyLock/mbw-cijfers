@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class GradesController extends Controller
 {
@@ -13,7 +14,7 @@ class GradesController extends Controller
      */
     public function index()
     {
-        return view('grades/add');
+        return view('grades/index');
     }
 
     /**
@@ -21,9 +22,13 @@ class GradesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function add()
     {
-        //
+        if (Auth::check()) 
+        {
+            return view('grades/add');
+        }
+        return redirect('docent/cijfers');
     }
 
     /**

@@ -1,3 +1,10 @@
-<?php 
+@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+</head>
+<body>
 
-echo "hoi";
+</body>
+</html>
