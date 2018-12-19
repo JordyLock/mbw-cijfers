@@ -1,10 +1,17 @@
 @extends('layouts.app')
-<!DOCTYPE html>
-<html>
-<head>
-	<title>test</title>
-</head>
-<body>
 
-</body>
-</html>
+@section('content')
+
+<form method="POST" action="{{route('grades.store')}}">
+		
+	@csrf
+
+		<input type="text" name="classnames">
+
+		<button type="submit" class="btn btn-primary">
+			{{__('submit') }}
+		</button>
+
+	</form>
+
+@endsection	
