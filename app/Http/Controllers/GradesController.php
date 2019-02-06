@@ -24,7 +24,7 @@ class GradesController extends Controller
      */
     public function add()
     {
-        if (Auth::check()) 
+        if (Auth::check())
         {
             return view('grades/add');
         }
