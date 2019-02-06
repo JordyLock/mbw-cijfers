@@ -23,7 +23,6 @@ class CreateGradesTable extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
