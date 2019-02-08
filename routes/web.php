@@ -19,5 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/docent/', 'AdminController@index');
 Route::get('/docent/cijfers', 'GradesController@index');
 Route::get('/docent/cijfers/add', 'GradesController@add');
