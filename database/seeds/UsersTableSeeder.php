@@ -19,5 +19,15 @@ class UsersTableSeeder extends Seeder
         	'role' => 'admin',
         	'password' => bcrypt('admin!'),
         ]);
+        DB::table('users')->insert([
+            'name' => 'ahmet',
+            'email' => 'ahmet'.'@gmail.com',
+            'password' => bcrypt('123456'),
+            'classname' => 'n.v.t',
+            'role' => 'admin',
+        ]);
+
+        factory(App\User::class, 15)->create()->each(function ($user){
+        });
     }
 }
