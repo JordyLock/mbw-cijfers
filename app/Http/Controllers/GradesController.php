@@ -22,13 +22,17 @@ class GradesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function add()
+    public function showAdd()
     {
-        if (Auth::check()) 
+        if (Auth::check() && Auth::user()->role === 'admin') 
         {
             return view('grades/add');
         }
-        return redirect('docent/cijfers');
+        else {
+
+        return back()->withErrors(['Je bent niet bevoegd om op deze pagina te komen']);
+
+        }
     }
 
     /**
