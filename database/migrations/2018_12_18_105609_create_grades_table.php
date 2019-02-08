@@ -18,12 +18,11 @@ class CreateGradesTable extends Migration
             $table->string('subject');
             $table->double('grade', 2, 1);
             $table->integer('user_id');
-            $table->string('test_name');
+            $table->string('test_name'); // test als in examen / toets
             $table->string('description');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
