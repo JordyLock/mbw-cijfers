@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Grade;
-
+use App\User;
 class GradesController extends Controller
 {
     /**
@@ -27,8 +27,9 @@ class GradesController extends Controller
     {
         if (Auth::check() && Auth::user()->role === 'admin') 
         {
-            $grades = \App\Grade::all();
-            return view('grades/add', compact('grades'));
+            $grades = Grade::all();
+            $users = User::all()->where('role', '=', 'student');
+            return view('grades/add', compact('grades', 'users'));
         }
         else {
 
@@ -45,7 +46,21 @@ class GradesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id'=>'required',
+            'grade'=>'required',
+            'test_name'=>'required',
+            'description'=>'required'
+        ]);
+        $grades = new Grade([
+
+            'user_id'=> $request->get('user_id'),
+            'grade'=> $request->get('grade'),
+            'test_name'=> $request->get('test_name'),
+            'description'=> $request->get('description')
+        ]);
+        $grades->save();
+        return redirect('/home')->with('success', 'grade toegevoegd');
     }
 
     /**
