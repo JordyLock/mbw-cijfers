@@ -9,8 +9,8 @@
 		<div class="form-group">
 			<p>Student: </p>
 			<select class="form-control">
-				@foreach($grades as $grade)
-      			<option>{{$grade->user_id}}</option>
+				@foreach($users as $user)
+      			<option value="{{$user->id}}">{{$user->name}}</option>
       			@endforeach
     		</select>
 		</div>
