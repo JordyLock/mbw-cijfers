@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class GradeSeeder extends Seeder
+
 {
     /**
      * Seed the application's database.
@@ -11,9 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-      $this->call([
-        GradeSeeder::class,
-        UsersTableSeeder::class,
-      ]);
+        factory(App\Grade::class, 30)->create()->each(function ($grade){
+        });
     }
 }
