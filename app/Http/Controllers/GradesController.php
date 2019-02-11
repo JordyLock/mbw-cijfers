@@ -25,7 +25,7 @@ class GradesController extends Controller
      */
     public function showAdd()
     {
-        if (Auth::check() && Auth::user()->role === 'admin') 
+        if (Auth::check())
         {
             $grades = Grade::all();
             $users = User::all()->where('role', '=', 'student');
