@@ -19,7 +19,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/docent/', 'AdminController@index');
 Route::get('/docent/registreer/student', 'AdminController@addStudent');
+
 Route::get('/docent/cijfers', 'GradesController@index');
+Route::get('/docent/cijfer/verwijder/{id}', 'GradesController@destroy');
+Route::get('/docent/cijfer/wijzig/{id}', 'GradesController@edit');
+Route::post('/docent/cijfer/update/{id}', 'GradesController@update');
 
 Route::get('/student/cijfers', 'StudentController@grades')->middleware('auth');
 
