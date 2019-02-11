@@ -2,26 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use Validator;
 use Auth;
+use App\User;
+use Session;
+use Redirect;
 
 class AdminController extends Controller
 {
 	public function index()
 	{
-		$this->CheckRole(Auth::check(), Auth::user());
+	// check if user is logged in and if that user is an Admin (Docent)
+		if (Auth::check() && Auth::user()->role === 'admin') {
+		} else {
+			return back()->with('error', 'Access denied!');
+		}
+	// end check
 		return view('admin.index');
 	}
 
 	public function addStudent() // view register student form
 	{
-		$this->CheckRole();
+	// check if user is logged in and if that user is an Admin (Docent)
+		if (Auth::check() && Auth::user()->role === 'admin') {
+		} else {
+			return back()->with('error', 'Access denied!');
+		}
+	// end check
 		return view('admin.addStudent');
 	}
 
 	public function store(Request $request) // save the request from the register student form
 	{
-		$this->CheckRole();
+	// check if user is logged in and if that user is an Admin (Docent)
+		if (Auth::check() && Auth::user()->role === 'admin') {
+		} else {
+			return back()->with('error', 'Access denied!');
+		}
+	// end check
 		// validate
         $rules = array(
             'name' => 'required',
@@ -41,7 +61,7 @@ class AdminController extends Controller
             $user->name = Input::get('name');
             $user->classname = Input::get('classname');
             $user->email = Input::get('email');
-            $user->password = Input::get('password');
+            $user->password = bcrypt(Input::get('password'));
             $user->save();
 
             // redirect
@@ -49,14 +69,5 @@ class AdminController extends Controller
             return Redirect::to('docent');
         }
 		return view('admin.addStudent');
-	}
-
-	public function CheckRole($check, $role) // function to validate that current user is indeed a teacher(admin)
-	{
-		if ($check && $role->role === 'admin') {
-			echo "test";
-		} else {
-			return back()->with('error', 'Access denied!');
-		}
 	}
 }
