@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Grade;
 
 class GradesController extends Controller
 {
@@ -22,13 +23,18 @@ class GradesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function add()
+    public function showAdd()
     {
         if (Auth::check())
         {
-            return view('grades/add');
+            $grades = \App\Grade::all();
+            return view('grades/add', compact('grades'));
         }
-        return redirect('docent/cijfers');
+        else {
+
+        return back()->withErrors(['Je bent niet bevoegd om op deze pagina te komen']);
+
+        }
     }
 
     /**
