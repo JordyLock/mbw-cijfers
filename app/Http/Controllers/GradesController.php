@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Grade;
 
 class GradesController extends Controller
 {
@@ -24,9 +25,10 @@ class GradesController extends Controller
      */
     public function showAdd()
     {
-        if (Auth::check() && Auth::user()->role === 'admin') 
+        if (Auth::check())
         {
-            return view('grades/add');
+            $grades = \App\Grade::all();
+            return view('grades/add', compact('grades'));
         }
         else {
 

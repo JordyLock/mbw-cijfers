@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
@@ -22,6 +20,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/docent/', 'AdminController@index');
 Route::get('/docent/registreer/student', 'AdminController@addStudent');
 Route::get('/docent/cijfers', 'GradesController@index');
-Route::get('/docent/cijfers/add', 'GradesController@showAdd');
+
+Route::get('/student/cijfers', 'StudentController@grades')->middleware('auth');
+
+Route::get('/docent/cijfers/toevoegen', 'GradesController@showAdd');
 Route::resource('grades', 'GradesController');
 Route::resource('docent', 'AdminController');
