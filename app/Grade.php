@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Grade extends Model
 {
-    protected $fillable = [
-        'user_id',
+    Protected $fillable = [
+    	'user_id', 'grade', 'test_name','description'
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
 }
