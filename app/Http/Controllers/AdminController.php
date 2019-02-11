@@ -3,82 +3,60 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('admin');
-    }
+	public function index()
+	{
+		$this->CheckRole(Auth::check(), Auth::user());
+		return view('admin.index');
+	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+	public function addStudent() // view register student form
+	{
+		$this->CheckRole();
+		return view('admin.addStudent');
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+	public function store(Request $request) // save the request from the register student form
+	{
+		$this->CheckRole();
+		// validate
+        $rules = array(
+            'name' => 'required',
+            'classname' => 'required',
+            'email' => 'required|email',
+            'password' => ['required', 'min:6', 'confirmed'],
+        );
+        $validator = Validator::make(Input::all(), $rules);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        if ($validator->fails()) {
+            return Redirect::to('docent/registreer/student')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            // store the user(Student)
+            $user = new User;
+            $user->name = Input::get('name');
+            $user->classname = Input::get('classname');
+            $user->email = Input::get('email');
+            $user->password = Input::get('password');
+            $user->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+            // redirect
+            Session::flash('message', 'Successfully created user!');
+            return Redirect::to('docent');
+        }
+		return view('admin.addStudent');
+	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+	public function CheckRole($check, $role) // function to validate that current user is indeed a teacher(admin)
+	{
+		if ($check && $role->role === 'admin') {
+			echo "test";
+		} else {
+			return back()->with('error', 'Access denied!');
+		}
+	}
 }
