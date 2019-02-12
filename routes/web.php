@@ -13,20 +13,20 @@
 
 Route::get('/', 'HomeController@index');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/docent/', 'AdminController@index');
-Route::get('/docent/registreer/student', 'AdminController@addStudent');
+Route::get('/docent/', 'AdminController@index')->middleware('checkAdmin');
+Route::get('/docent/registreer/student', 'AdminController@addStudent')->middleware('checkAdmin');
 
-Route::get('/docent/cijfers', 'GradesController@index');
-Route::get('/docent/cijfer/verwijder/{id}', 'GradesController@destroy');
-Route::get('/docent/cijfer/wijzig/{id}', 'GradesController@edit');
-Route::post('/docent/cijfer/update/{id}', 'GradesController@update');
+Route::get('/docent/cijfers', 'GradesController@index')->middleware('checkAdmin');
+Route::get('/docent/cijfer/verwijder/{id}', 'GradesController@destroy')->middleware('checkAdmin');
+Route::get('/docent/cijfer/wijzig/{id}', 'GradesController@edit')->middleware('checkAdmin');
+Route::post('/docent/cijfer/update/{id}', 'GradesController@update')->middleware('checkAdmin');
 
 Route::get('/student/cijfers', 'StudentController@grades')->middleware('auth');
 
-Route::get('/docent/cijfers/toevoegen', 'GradesController@showAdd');
-Route::resource('grades', 'GradesController');
-Route::resource('docent', 'AdminController');
+Route::get('/docent/cijfers/toevoegen', 'GradesController@showAdd')->middleware('checkAdmin');
+Route::resource('grades', 'GradesController')->middleware('checkAdmin');
+Route::resource('docent', 'AdminController')->middleware('checkAdmin');
