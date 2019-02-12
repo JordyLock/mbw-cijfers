@@ -3,14 +3,14 @@
 @section('content')
 
 <div class="container">
-<form method="POST" action="{{route('grades.store')}}">
+<form method="POST" action="{{ route('grades.store') }}">
 		
 	@csrf
 		<div class="form-group">
 			<p>Student: </p>
-			<select class="form-control">
+			<select class="form-control" name="user_id">
 				@foreach($users as $user)
-      			<option value="{{$user->id}}">{{$user->name}}</option>
+      				<option value="{{$user->id}}">{{$user->name}}</option>
       			@endforeach
     		</select>
 		</div>
@@ -20,7 +20,7 @@
 		</div>
 		<div class="form-group">
 			<p>Toets naam: </p>
-			<input class="form-control" type="text" name="test">
+			<input class="form-control" type="text" name="test_name">
 		</div>
 		<div class="form-group">
 			<p>Cijfer: </p>
@@ -33,7 +33,6 @@
 		<button type="submit" class="btn btn-primary">
 			{{__('submit') }}
 		</button>
-
 	</form>
 </div>
 @endsection	

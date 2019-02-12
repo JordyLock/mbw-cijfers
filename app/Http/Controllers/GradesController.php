@@ -48,19 +48,21 @@ class GradesController extends Controller
     {
         $request->validate([
             'user_id'=>'required',
+            'subject'=>'required',
             'grade'=>'required',
             'test_name'=>'required',
             'description'=>'required'
         ]);
         $grades = new Grade([
 
-            'user_id'=> $request->get('user_id'),
+            'subject'=> $request->get('subject'),
             'grade'=> $request->get('grade'),
+            'user_id'=> $request->get('user_id'),
             'test_name'=> $request->get('test_name'),
             'description'=> $request->get('description')
         ]);
         $grades->save();
-        return redirect('/home')->with('success', 'grade toegevoegd');
+        return redirect('/student/cijfers')->with('success', 'grade toegevoegd');
     }
 
     /**
