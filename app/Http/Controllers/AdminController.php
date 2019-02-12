@@ -42,11 +42,12 @@ class AdminController extends Controller
 			return back()->with('error', 'Access denied!');
 		}
 	// end check
+
 		// validate
         $rules = array(
             'name' => 'required',
             'classname' => 'required',
-            'email' => 'required|email',
+            'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'min:6', 'confirmed'],
         );
         $validator = Validator::make(Input::all(), $rules);
