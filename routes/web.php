@@ -13,16 +13,16 @@
 
 Route::get('/', 'HomeController@index');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/docent/', 'AdminController@index');
-Route::get('/docent/registreer/student', 'AdminController@addStudent');
-Route::get('/docent/cijfers', 'GradesController@index');
+Route::get('/docent/registreer/student', 'AdminController@addStudent')->middleware('checkAdmin');
+Route::get('/docent/cijfers', 'GradesController@index')->middleware('checkAdmin');
 
 Route::get('/student/cijfers', 'StudentController@grades')->middleware('auth');
 
-Route::get('/docent/cijfers/toevoegen', 'GradesController@showAdd');
-Route::resource('grades', 'GradesController');
+Route::get('/docent/cijfers/toevoegen', 'GradesController@showAdd')->middleware('checkAdmin');
+Route::resource('grades', 'GradesController')->middleware('checkAdmin');
 Route::resource('docent', 'AdminController');

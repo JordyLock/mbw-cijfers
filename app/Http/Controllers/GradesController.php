@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Grade;
 use App\User;
+
 class GradesController extends Controller
 {
     /**
@@ -25,17 +26,10 @@ class GradesController extends Controller
      */
     public function showAdd()
     {
-        if (Auth::check() && Auth::user()->role === 'admin') 
-        {
+
             $grades = Grade::all();
             $users = User::all()->where('role', '=', 'student');
             return view('grades/add', compact('grades', 'users'));
-        }
-        else {
-
-        return back()->withErrors(['Je bent niet bevoegd om op deze pagina te komen']);
-
-        }
     }
 
     /**
@@ -48,19 +42,21 @@ class GradesController extends Controller
     {
         $request->validate([
             'user_id'=>'required',
+            'subject'=>'required',
             'grade'=>'required',
             'test_name'=>'required',
             'description'=>'required'
         ]);
         $grades = new Grade([
 
-            'user_id'=> $request->get('user_id'),
+            'subject'=> $request->get('subject'),
             'grade'=> $request->get('grade'),
+            'user_id'=> $request->get('user_id'),
             'test_name'=> $request->get('test_name'),
             'description'=> $request->get('description')
         ]);
         $grades->save();
-        return redirect('/home')->with('success', 'grade toegevoegd');
+        return redirect('/student/cijfers')->with('success', 'grade toegevoegd');
     }
 
     /**
