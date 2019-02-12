@@ -5,44 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Validator;
-use Auth;
 use App\User;
-use Session;
 use Redirect;
+use Session;
 
 class AdminController extends Controller
 {
 	public function index()
 	{
-	// check if user is logged in and if that user is an Admin (Docent)
-		if (Auth::check() && Auth::user()->role === 'admin') {
-		} else {
-			return back()->with('error', 'Access denied!');
-		}
-	// end check
 		return view('admin.index');
 	}
 
 	public function addStudent() // view register student form
 	{
-	// check if user is logged in and if that user is an Admin (Docent)
-		if (Auth::check() && Auth::user()->role === 'admin') {
-		} else {
-			return back()->with('error', 'Access denied!');
-		}
-	// end check
 		return view('admin.addStudent');
 	}
 
 	public function store(Request $request) // save the request from the register student form
 	{
-	// check if user is logged in and if that user is an Admin (Docent)
-		if (Auth::check() && Auth::user()->role === 'admin') {
-		} else {
-			return back()->with('error', 'Access denied!');
-		}
-	// end check
-
 		// validate
         $rules = array(
             'name' => 'required',
