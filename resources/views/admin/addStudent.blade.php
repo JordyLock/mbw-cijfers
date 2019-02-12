@@ -32,7 +32,7 @@
 						</div>
 
 						<div class="form-group row">
-							<label for="classname" class="col-md-4 col-form-label text-md-right">{{ __('Klass') }}</label>
+							<label for="classname" class="col-md-4 col-form-label text-md-right">{{ __('Klas') }}</label>
 
 							<div class="col-md-6">
 								<input id="classname" type="text" class="form-control{{ $errors->has('classname') ? ' is-invalid' : '' }}" name="classname" value="{{ old('classname') }}" required autofocus>
