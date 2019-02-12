@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Grade;
 use App\User;
+
 class GradesController extends Controller
 {
     /**
@@ -25,17 +26,10 @@ class GradesController extends Controller
      */
     public function showAdd()
     {
-        if (Auth::check() && Auth::user()->role === 'admin') 
-        {
+
             $grades = Grade::all();
             $users = User::all()->where('role', '=', 'student');
             return view('grades/add', compact('grades', 'users'));
-        }
-        else {
-
-        return back()->withErrors(['Je bent niet bevoegd om op deze pagina te komen']);
-
-        }
     }
 
     /**
