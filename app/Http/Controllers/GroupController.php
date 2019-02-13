@@ -54,7 +54,7 @@ class GroupController extends Controller
         $group = Group::findOrFail($id);
         $students = $group->getUsers;
 
-        return view('groups.show', compact('group', 'students',));//
+        return view('groups.show', compact('group', 'students'));//
     }
 
     /**
