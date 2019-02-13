@@ -17,6 +17,11 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+Route::get('/docent/cijfers/{id}', 'GradesController@show')->name('grades.show')->middleware('checkAdmin');
+Route::get('/group', 'GroupController@index');
+Route::get('/group/{id}', 'GroupController@show')->name('group.show');
+
 Route::get('/docent/', 'AdminController@index')->middleware('checkAdmin');
 Route::get('/docent/registreer/student', 'AdminController@addStudent')->middleware('checkAdmin');
 

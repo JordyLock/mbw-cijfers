@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Grade;
 use Illuminate\Http\Request;
 use Auth;
 use App\Grade;
@@ -67,7 +69,13 @@ class GradesController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = User::findOrFail($id);
+        $grades = Grade::where('user_id', $id)
+                            ->orderBy('subject', 'DESC')
+                            ->orderBy('id', 'DESC')
+                            ->get();
+
+        return view('grades.show', compact('grades', 'student'));//
     }
 
     /**
