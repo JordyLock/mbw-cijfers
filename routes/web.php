@@ -19,5 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/docent/cijfers', 'GradesController@index');
+Route::get('/docent/cijfers', 'GradesController@index')->middleware('role:admin');
+Route::get('/docent/cijfers/{id}', 'GradesController@show')->name('grades.show')->middleware('checkRole:admin');
 Route::get('/docent/cijfers/add', 'GradesController@add');
+Route::get('/group', 'GroupController@index');
+Route::get('/group/{id}', 'GroupController@show')->name('group.show');

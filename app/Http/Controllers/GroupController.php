@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Grade;
+use App\Group;
+use App\Group_user;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
-class GradesController extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +18,8 @@ class GradesController extends Controller
      */
     public function index()
     {
-        return view('grades/index');
+        $groups = Group::all();
+        return view('groups.index', compact('groups'));//
     }
 
     /**
@@ -24,13 +27,9 @@ class GradesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function add()
+    public function create()
     {
-        if (Auth::check()) 
-        {
-            return view('grades/add');
-        }
-        return redirect('docent/cijfers');
+        //
     }
 
     /**
@@ -47,27 +46,24 @@ class GradesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\group  $group
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $student = User::findOrFail($id);
-        $grades = Grade::where('user_id', $id)
-                            ->orderBy('subject', 'DESC')
-                            ->orderBy('id', 'DESC')
-                            ->get();
+        $group = Group::findOrFail($id);
+        $students = $group->getUsers;
 
-        return view('grades.show', compact('grades', 'student'));//
+        return view('groups.show', compact('group', 'students',));//
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\group  $group
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(group $group)
     {
         //
     }
@@ -76,10 +72,10 @@ class GradesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\group  $group
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, group $group)
     {
         //
     }
@@ -87,10 +83,10 @@ class GradesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\group  $group
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(group $group)
     {
         //
     }
