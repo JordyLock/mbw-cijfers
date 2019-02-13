@@ -17,13 +17,12 @@ class CreateGradesTable extends Migration
             $table->increments('id');
             $table->string('subject');
             $table->float('grade');
-            $table->integer('user_id');
+            $table->integer('user_id')->references('id')->on('users');
             $table->string('test_name');
             $table->string('description');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

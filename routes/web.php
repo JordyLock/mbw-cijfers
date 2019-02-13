@@ -11,13 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 Route::get('/docent/cijfers', 'GradesController@index')->middleware('role:admin');
 Route::get('/docent/cijfers/{id}', 'GradesController@show')->name('grades.show')->middleware('checkRole:admin');
