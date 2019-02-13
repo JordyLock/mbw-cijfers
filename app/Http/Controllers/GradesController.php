@@ -6,8 +6,7 @@ use App\User;
 use App\Grade;
 use Illuminate\Http\Request;
 use Auth;
-use App\Grade;
-use App\User;
+
 
 class GradesController extends Controller
 {
