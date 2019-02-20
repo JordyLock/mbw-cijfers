@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Grade;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -14,7 +16,8 @@ class GradesController extends Controller
      */
     public function index()
     {
-        return view('grades/index');
+        $grades = Grade::all();
+        return view('grades/index')->with('grades', $grades);
     }
 
     /**
@@ -22,13 +25,11 @@ class GradesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function add()
+    public function showAdd()
     {
-        if (Auth::check()) 
-        {
-            return view('grades/add');
-        }
-        return redirect('docent/cijfers');
+            $grades = Grade::all();
+            $users = User::all()->where('role', '=', 'student');
+            return view('grades/add', compact('grades', 'users'));
     }
 
     /**
@@ -39,7 +40,23 @@ class GradesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id'=>'required',
+            'subject'=>'required',
+            'grade'=>'required',
+            'test_name'=>'required',
+            'description'=>'required'
+        ]);
+        $grades = new Grade([
+
+            'subject'=> $request->get('subject'),
+            'grade'=> $request->get('grade'),
+            'user_id'=> $request->get('user_id'),
+            'test_name'=> $request->get('test_name'),
+            'description'=> $request->get('description')
+        ]);
+        $grades->save();
+        return redirect('/student/cijfers')->with('success', 'grade toegevoegd');
     }
 
     /**
@@ -50,7 +67,13 @@ class GradesController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = User::findOrFail($id);
+        $grades = Grade::where('user_id', $id)
+                            ->orderBy('subject', 'DESC')
+                            ->orderBy('id', 'DESC')
+                            ->get();
+
+        return view('grades.show', compact('grades', 'student'));//
     }
 
     /**
@@ -61,7 +84,17 @@ class GradesController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Auth::check() && Auth::user()->role === 'admin')
+        {
+            $grade = Grade::find($id);
+            $users = User::all()->where('role', '=', 'student');
+            return view('grades.edit', compact('grade', 'users'));
+        }
+        else {
+
+        return back()->withErrors(['Je bent niet bevoegd om op deze pagina te komen']);
+
+        }
     }
 
     /**
@@ -73,7 +106,23 @@ class GradesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'subject' => 'required',
+            'user_id'=>'required',
+            'grade'=>'required',
+            'test'=>'required',
+            'description'=>'required'
+        ]);
+
+        $grade = Grade::find($id);
+        $grade->subject = $request->subject;
+        $grade->grade = $request->grade;
+        $grade->user_id = $request->user_id;
+        $grade->test_name = $request->test;
+        $grade->description = $request->description;
+        $grade->save();
+
+        return redirect()->back()->with('message', 'Cijfer aangepast');
     }
 
     /**
@@ -84,6 +133,17 @@ class GradesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Auth::check() && Auth::user()->role === 'admin')
+        {
+            $grades = Grade::all();
+
+            $grade = Grade::find($id);
+            if($grade != null) {
+                $grade->delete();
+                return redirect()->back()->with('grades', $grades)->with('message', 'Cijfer verwijderd');
+            } else {
+                return view('grades.index')->with('grades', $grades);
+            }
+        }
     }
 }
