@@ -20,8 +20,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/group', 'GroupController@index');
 Route::get('/group/{id}', 'GroupController@show')->name('group.show');
 
-Route::get('/docent', 'AdminController@index')->middleware('checkAdmin');
-Route::get('/docent/registreer/student', 'AdminController@addStudent')->middleware('checkAdmin');
+Route::get('/docent/', 'AdminController@index')->middleware('checkAdmin');
+Route::get('/docent/registreer/student', 'AdminController@addStudent')->middleware('checkAdmin')->name('addStudent');
 
 Route::get('/docent/cijfers/toevoegen', 'GradesController@showAdd')->middleware('checkAdmin');
 Route::get('/docent/cijfer/{id}', 'GradesController@show')->middleware('checkAdmin');
