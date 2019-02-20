@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
         	'email' => 'admin@davinci.nl',
         	'classname' => 'n.v.t',
         	'role' => 'admin',
-        	'password' => bcrypt('admin!'),
+        	'password' => bcrypt('admin!')
         ]);
         DB::table('users')->insert([
             'name' => 'ahmet',
@@ -27,6 +27,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('123456'),
             'classname' => 'n.v.t',
             'role' => 'admin',
+
         ]);
 
         factory(App\User::class, 15)->create()->each(function ($user){

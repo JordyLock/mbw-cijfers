@@ -10,8 +10,8 @@ class Grade extends Model
     	'user_id', 'subject', 'grade', 'test_name','description'
     ];
 
-    public function users()
+    public function user()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\User');
     }
 }
