@@ -32,7 +32,6 @@
                         @endforeach
                       </tbody>
                     </table>
-                    
         <!-- END People -->
 
 @endsection

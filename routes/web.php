@@ -19,6 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/docent/cijfers/{id}', 'GradesController@show')->name('grades.show')->middleware('checkAdmin');
+
 Route::get('/group', 'GroupController@index')->middleware('checkAdmin');
 Route::get('/group/{id}', 'GroupController@show')->name('group.show')->middleware('checkAdmin');
 
