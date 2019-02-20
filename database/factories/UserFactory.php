@@ -15,9 +15,12 @@ use Faker\Provider\Lorem as Lorem;
 */
 
 $factory->define(App\User::class, function (Faker $faker) {
+	$tussenvoegsels = array('de', 'van de', 'van der', 'van');
 	$lorem = new Lorem($faker);
     return [
-        'name' => $faker->name,
+        'name' => $faker->firstName,
+        'prefix' => $tussenvoegsels[array_rand($tussenvoegsels)],
+        'lastname' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
         'role' => 'student',
         'classname' => 'n.v.t',
