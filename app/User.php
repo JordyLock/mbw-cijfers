@@ -28,7 +28,7 @@ class User extends Authenticatable
 
     public function grades()
     {
-         return $this->belongsToMany('App\Grade');
+         return $this->hasMany('App\Grade');
     }
 
     public function isAdmin() {
