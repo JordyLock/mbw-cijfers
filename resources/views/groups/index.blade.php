@@ -12,7 +12,7 @@
 
 
     <div class="content cotent-boxed">
-        <h2 class="content-heading">Groups</h2>
+        <h2>Groups</h2>
         <div class="row">
             <!-- Project -->
 
@@ -21,8 +21,8 @@
             @isset($groups)
                 @foreach($groups as $group)
                     <div class="col-sm-6 col-lg-3" team-id="{{ $group->group_id }}">
-                        <div class="block block-rounded block-themed">
-                            <div class="block-header bg-primary">
+                        <div class="block">
+                            <div class="block-header bg-secondary">
                                 <h3 class="h4 font-w600 push-5">
                                     <a class="text-white" href="{{route('group.show', ['id' => $group->id])}}">{{ $group->name }}</a>
                                 </h3>

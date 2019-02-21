@@ -8,21 +8,30 @@
 @endsection
 
 @section('content')
-            <div class="block-content">
-                <div class="row" group-id="{{ $group->id }}">
-                    @foreach($students as $student)
-                        <div class="col-md-4">
-                            <div class="block-header bg-secondary">
-                                <a href="{{route('grades.show', ['id' => $student->id])}}">
-                                    <i class="fa fa-circle text-success"></i>
-                                    <div class=""><small>{{ $student->name }}</small></div>
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
+                   <table class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th>Naam</th>
+                          <th>Student ID</th>
+                          @foreach($students as $student)
+                          @foreach($student->grades as $grade)
+                          <th>{{$grade->test_name}}</th>
+                          @endforeach
+                          @endforeach
+                        </tr>
+                      </thead>
+                      @foreach($students as $student)
+                      <tbody>
+                        <tr>
+                          <td>{{$student->name}}</td>
+                          <td>{{$student->id}}</td>
+                          @foreach($student->grades as $grade)
+                          <td>{{$grade->grade}}</td>
+                          @endforeach
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
         <!-- END People -->
 
 @endsection

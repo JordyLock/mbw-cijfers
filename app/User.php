@@ -14,7 +14,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'classname', 'role', 'email', 'password',
+        'name', 'prefix', 'lastname', 'classname', 'role', 'email', 'password',
     ];
 
     /**
@@ -28,6 +28,14 @@ class User extends Authenticatable
 
     public function grades()
     {
-         return $this->belongsToMany('App\Grade');
+         return $this->hasMany('App\Grade');
+    }
+
+    public function isAdmin() {
+        if ($this->role === "admin") {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
