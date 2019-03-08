@@ -35,3 +35,4 @@ Route::get('/student/cijfers', 'StudentController@grades')->middleware('auth');
 
 Route::resource('grades', 'GradesController')->middleware('checkAdmin');
 Route::resource('docent', 'AdminController')->middleware('checkAdmin');
+Route::resource('vak', 'SubjectController')->middleware('checkAdmin');

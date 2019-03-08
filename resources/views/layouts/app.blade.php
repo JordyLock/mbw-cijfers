@@ -42,6 +42,14 @@
                             </li>
                         @endif
                         @endguest
+                        @guest
+                        @else
+                        @if(Auth::user()->isAdmin())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('vak.create') }}">{{ __('Vak toevoegen') }}</a>
+                            </li>
+                        @endif
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->

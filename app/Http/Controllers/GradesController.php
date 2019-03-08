@@ -66,16 +66,16 @@ class GradesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $student = User::findOrFail($id);
-        $grades = Grade::where('user_id', $id)
-                            ->orderBy('subject', 'DESC')
-                            ->orderBy('id', 'DESC')
-                            ->get();
+    // public function show($id)
+    // {
+    //     $student = User::findOrFail($id);
+    //     $grades = Grade::where('user_id', $id)
+    //                         ->orderBy('subject', 'DESC')
+    //                         ->orderBy('id', 'DESC')
+    //                         ->get();
 
-        return view('grades.show', compact('grades', 'student'));//
-    }
+    //     return view('grades.show', compact('grades', 'student'));//
+    // }
 
     /**
      * Show the form for editing the specified resource.
